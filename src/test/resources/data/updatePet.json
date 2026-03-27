@@ -1,0 +1,8 @@
+{
+  "id": #(createdId),
+  "category": { "id": 1, "name": "golden" },
+  "name": "#(updatedName)",
+  "photoUrls": ["https://ibb.co/ksdpmPZZ"],
+  "tags": [{ "id": 1, "name": "bonitos" }],
+  "status": "sold"
+}
