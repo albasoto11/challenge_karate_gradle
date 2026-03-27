@@ -1,5 +1,5 @@
 {
-  "id": #(createdId),
+  "id": #(petId),
   "category": { "id": 1, "name": "golden" },
   "name": "#(updatedName)",
   "photoUrls": ["https://ibb.co/ksdpmPZZ"],
