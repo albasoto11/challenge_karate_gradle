@@ -1,0 +1,8 @@
+{
+  "id": #(petId),
+  "category": { "id": 1, "name": "golden" },
+  "name": "",
+  "photoUrls": [],
+  "tags": [{ "id": 1, "name": "bonitos" }],
+  "status": "available"
+}

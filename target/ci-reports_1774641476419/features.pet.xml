@@ -1,0 +1,96 @@
+<testsuite failures="3" name="features/pet.feature" skipped="0" tests="5" time="7.479151"><testcase classname="features.pet" name="[CA-01] Añadir mascota" time="1.515034"><failure message="match failed: EQUALS&#10;  $ | not equal (STRING:STRING)&#10;  'vendido_xyz'&#10;  'available'&#10;&#10;classpath:features/pet.feature:43">* url 'https://petstore.swagger.io/v2' .................................... passed
+* header Content-Type = 'application/json' ................................ passed
+* header Accept       = 'application/json' ................................ passed
+* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'lucas_' + petId .......................................... passed
+* print '&gt;&gt;&gt; Pet ID para esta ejecución:', petId .......................... passed
+* def bodyBase = .......................................................... passed
+Given path '/pet' ......................................................... passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+And match response.id         == petId .................................... passed
+And match response.name       == petName .................................. passed
+And match response.status     == 'available' .............................. failed
+
+Stack Trace:
+com.intuit.karate.KarateException: match failed: EQUALS
+  $ | not equal (STRING:STRING)
+  'vendido_xyz'
+  'available'
+
+classpath:features/pet.feature:43&#13;
+	at &lt;feature&gt;.: And match response.status     == 'available' (classpath:features/pet.feature:43:43)&#13;
+
+* print '&gt;&gt;&gt; Mascota creada OK. ID:', response.id, '| Name:', response.name . skipped
+</failure></testcase>
+<testcase classname="features.pet" name="[CA-02] POST /pet/ con status inválido (no está en enum)" time="1.485919"><system-out>* url 'https://petstore.swagger.io/v2' .................................... passed
+* header Content-Type = 'application/json' ................................ passed
+* header Accept       = 'application/json' ................................ passed
+* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'lucas_' + petId .......................................... passed
+* print '&gt;&gt;&gt; Pet ID para esta ejecución:', petId .......................... passed
+* def bodyBase = .......................................................... passed
+Given path '/pet/' ........................................................ passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+* print '&gt;&gt;&gt; ALERTA QA: API acepta status fuera del enum. Valor guardado:', response.status . passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CA-03] POST /pet/ con status inválido (no está en enum)" time="1.513302"><failure message="match failed: EQUALS&#10;  $ | not equal (STRING:STRING)&#10;  'lucas_300483'&#10;  ''&#10;&#10;classpath:features/pet.feature:58">* url 'https://petstore.swagger.io/v2' .................................... passed
+* header Content-Type = 'application/json' ................................ passed
+* header Accept       = 'application/json' ................................ passed
+* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'lucas_' + petId .......................................... passed
+* print '&gt;&gt;&gt; Pet ID para esta ejecución:', petId .......................... passed
+* def bodyBase = .......................................................... passed
+Given path '/pet/' ........................................................ passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+And match response.name == '' ............................................. failed
+
+Stack Trace:
+com.intuit.karate.KarateException: match failed: EQUALS
+  $ | not equal (STRING:STRING)
+  'lucas_300483'
+  ''
+
+classpath:features/pet.feature:58&#13;
+	at &lt;feature&gt;.: And match response.name == '' (classpath:features/pet.feature:58:58)&#13;
+
+* print '&gt;&gt;&gt; ALERTA QA: API acepta nombre vacio ........................... skipped
+</failure></testcase>
+<testcase classname="features.pet" name="[CA-04] POST /pet/ sin el campo name (campo requerido)" time="1.484231"><system-out>* url 'https://petstore.swagger.io/v2' .................................... passed
+* header Content-Type = 'application/json' ................................ passed
+* header Accept       = 'application/json' ................................ passed
+* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'lucas_' + petId .......................................... passed
+* print '&gt;&gt;&gt; Pet ID para esta ejecución:', petId .......................... passed
+* def bodyBase = .......................................................... passed
+Given path '/pet/' ........................................................ passed
+And request ............................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+* print '&gt;&gt;&gt; ALERTA QA: API acepta body sin el campo "name" requerido' .... passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CB-05] POST /pet/ con body vacío {}" time="1.480666"><failure message="no step-definition method match found for: status != 200&#10;classpath:features/pet.feature:82">* url 'https://petstore.swagger.io/v2' .................................... passed
+* header Content-Type = 'application/json' ................................ passed
+* header Accept       = 'application/json' ................................ passed
+* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'lucas_' + petId .......................................... passed
+* print '&gt;&gt;&gt; Pet ID para esta ejecución:', petId .......................... passed
+* def bodyBase = .......................................................... passed
+Given path '/pet/' ........................................................ passed
+And request {} ............................................................ passed
+When method POST .......................................................... passed
+Then status != 200 ........................................................ failed
+
+Stack Trace:
+com.intuit.karate.KarateException: no step-definition method match found for: status != 200
+classpath:features/pet.feature:82&#13;
+	at &lt;feature&gt;.: Then status != 200 (classpath:features/pet.feature:82:82)&#13;
+
+* print '&gt;&gt;&gt; Body vacío respondió con status:', responseStatus ............ skipped
+</failure></testcase>
+</testsuite>

@@ -1,0 +1,8 @@
+{
+  "id": #(petId),
+  "category": { "id": 1, "name": "golden" },
+  "name": "#(petName)",
+  "photoUrls": ["https://ibb.co/ksdpmPZZ"],
+  "tags": [{ "id": 1, "name": "bonitos" }],
+  "status": "available"
+}

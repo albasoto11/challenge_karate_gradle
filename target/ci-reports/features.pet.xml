@@ -1,0 +1,108 @@
+<testsuite failures="2" name="features/pet.feature" skipped="0" tests="9" time="2.516362"><testcase classname="features.pet" name="[CA-01] Crear mascota y guardar ID para consulta posterior" time="0.286312"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet' ................................................ passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+* def globalPetId = response.id ........................................... passed
+* def globalPetName = response.name ....................................... passed
+* def globalPetStatus = response.status ................................... passed
+* karate.set('createdPetId', globalPetId) ................................. passed
+* karate.set('createdPetName', globalPetName) ............................. passed
+* karate.set('createdPetStatus', globalPetStatus) ......................... passed
+* print '✅ Mascota creada y guardada: ID=' + globalPetId + ' | Nombre=' + globalPetName . passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CA-02] Validar el estado available del registro" time="0.275992"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet' ................................................ passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+And match response.status     == 'available' .............................. passed
+* print '&gt;&gt;&gt; El estado no es available', response.status .................. passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CA-03] POST /pet/ tiene datos en el cuerpo" time="0.268299"><failure message="match failed: EQUALS&#10;  $ | not equal (STRING:STRING)&#10;  'Pet_604811'&#10;  ''&#10;&#10;classpath:features/pet.feature:47">* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/' ............................................... passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+And match response.name == '' ............................................. failed
+
+Stack Trace:
+com.intuit.karate.KarateException: match failed: EQUALS
+  $ | not equal (STRING:STRING)
+  'Pet_604811'
+  ''
+
+classpath:features/pet.feature:47&#13;
+	at &lt;feature&gt;.: And match response.name == '' (classpath:features/pet.feature:47:47)&#13;
+
+* print '&gt;&gt;&gt; ALERTA QA: API acepta nombre vacio ........................... skipped
+</failure></testcase>
+<testcase classname="features.pet" name="[CA-04] POST /pet/ sin el campo name (campo requerido)" time="0.284278"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/' ............................................... passed
+And request bodyBase ...................................................... passed
+When method POST .......................................................... passed
+Then status 200 ........................................................... passed
+* print '&gt;&gt;&gt; ALERTA QA: API acepta body sin el campo "name" requerido' .... passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CB-05] No puede tener body vacío {}" time="0.281596"><failure message="no step-definition method match found for: status != 200&#10;classpath:features/pet.feature:62">* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/' ............................................... passed
+And request {} ............................................................ passed
+When method POST .......................................................... passed
+Then status != 200 ........................................................ failed
+
+Stack Trace:
+com.intuit.karate.KarateException: no step-definition method match found for: status != 200
+classpath:features/pet.feature:62&#13;
+	at &lt;feature&gt;.: Then status != 200 (classpath:features/pet.feature:62:62)&#13;
+
+* print '&gt;&gt;&gt; Body vacío respondió con status:', responseStatus ............ skipped
+</failure></testcase>
+<testcase classname="features.pet" name="[GET-01] Consultar GET /pet/{petId} - Consultar por ID" time="0.272639"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/354061' ......................................... passed
+When method GET ........................................................... passed
+Then status 200 ........................................................... passed
+* def retrievedPet = response ............................................. passed
+* print '✓ Mascota consultada por ID:', retrievedPet.id, '| Nombre:', retrievedPet.name . passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[GB-05] Consultar mascota NO existente" time="0.281275"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/aaaaa' .......................................... passed
+When method GET ........................................................... passed
+Then status 404 ........................................................... passed
+* print '✓ API correctamente retorna 404 para mascota no existente' ....... passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[GB-05] Consultar ID respuesta coincida con el 354061" time="0.293334"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/354061' ......................................... passed
+When method GET ........................................................... passed
+Then status 200 ........................................................... passed
+And match response.id == 354061 ........................................... passed
+* print '✓ SI CONINCIDE' .................................................. passed
+</system-out></testcase>
+<testcase classname="features.pet" name="[CA-05-getById] Validar que datos no están vacíos" time="0.272637"><system-out>* def petId   = Math.floor(Math.random() * 900000) + 100000 ............... passed
+* def petName = 'Pet_' + petId ............................................ passed
+* def bodyBase = read('classpath:/data/createPet.json') ................... passed
+Given url baseUrl + '/pet/354061' ......................................... passed
+When method GET ........................................................... passed
+Then status 200 ........................................................... passed
+* match response.id != null ............................................... passed
+* match response.name != '' ............................................... passed
+* match response.status != '' ............................................. passed
+* match response.photoUrls !=[] ........................................... passed
+* print '✅ Todos los datos tienen valores válidos (no vacíos)' ............ passed
+</system-out></testcase>
+</testsuite>

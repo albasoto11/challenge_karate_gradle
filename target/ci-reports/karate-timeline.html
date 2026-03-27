@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"pool-1-thread-1","id":1},{"content":"pool-1-thread-2","id":2},{"content":"pool-1-thread-3","id":3},{"content":"pool-1-thread-4","id":4},{"content":"pool-1-thread-5","id":5},{"content":"pool-1-thread-6","id":6},{"content":"pool-1-thread-7","id":7},{"content":"pool-1-thread-8","id":8}];
+var items = [{"id":1,"group":1,"content":"features\/pet[1:19]","start":1774641476464,"end":1774641476788,"title":"features\/pet[1:19] 14:57:56.464-14:57:56.788 [CA-01] Crear mascota y guardar ID para consulta posterior"},{"id":2,"group":2,"content":"features\/pet[2:34]","start":1774641476491,"end":1774641476785,"title":"features\/pet[2:34] 14:57:56.491-14:57:56.785 [CA-02] Validar el estado available del registro"},{"id":3,"group":3,"content":"features\/pet[3:42]","start":1774641476491,"end":1774641476774,"title":"features\/pet[3:42] 14:57:56.491-14:57:56.774 [CA-03] POST \/pet\/ tiene datos en el cuerpo","className":"failed"},{"id":4,"group":4,"content":"features\/pet[4:50]","start":1774641476490,"end":1774641476791,"title":"features\/pet[4:50] 14:57:56.490-14:57:56.791 [CA-04] POST \/pet\/ sin el campo name (campo requerido)"},{"id":5,"group":5,"content":"features\/pet[5:57]","start":1774641476487,"end":1774641476792,"title":"features\/pet[5:57] 14:57:56.487-14:57:56.792 [CB-05] No puede tener body vacío {}","className":"failed"},{"id":6,"group":6,"content":"features\/pet[6:68]","start":1774641476488,"end":1774641476779,"title":"features\/pet[6:68] 14:57:56.488-14:57:56.779 [GET-01] Consultar GET \/pet\/{petId} - Consultar por ID"},{"id":7,"group":7,"content":"features\/pet[7:76]","start":1774641476496,"end":1774641476797,"title":"features\/pet[7:76] 14:57:56.496-14:57:56.797 [GB-05] Consultar mascota NO existente"},{"id":8,"group":8,"content":"features\/pet[8:82]","start":1774641476488,"end":1774641476801,"title":"features\/pet[8:82] 14:57:56.488-14:57:56.801 [GB-05] Consultar ID respuesta coincida con el 354061"},{"id":9,"group":3,"content":"features\/pet[9:89]","start":1774641476785,"end":1774641477068,"title":"features\/pet[9:89] 14:57:56.785-14:57:57.068 [CA-05-getById] Validar que datos no están vacíos"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>
